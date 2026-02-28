@@ -1,0 +1,200 @@
+/* Hide scrollbar for neatness but keep functionality */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Navbar Link Hover Effect - Expanding Underline */
+.nav-link {
+  position: relative;
+}
+.nav-link::after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: -4px;
+  left: 50%;
+  background-color: #0d9488;
+  transition: all 0.3s ease-in-out;
+}
+.nav-link:hover::after {
+  width: 100%;
+  left: 0;
+}
+
+/* Search Bar Expansion */
+.search-bar-container.active .search-input {
+  width: 200px;
+  opacity: 1;
+  padding-left: 1rem;
+}
+
+/* Kinetic Section Styling */
+.kinetic-wrapper {
+  transform: rotate(-5deg) scale(1.1);
+  overflow: hidden;
+}
+.kinetic-track {
+  display: flex;
+  gap: 2rem;
+  will-change: transform;
+}
+
+/* Scroll Reveal Base State */
+.reveal-up {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.reveal-up.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Bespoke Grid Items */
+.grid-item-hover:hover img {
+  transform: scale(1.05);
+}
+
+/*          gift css */
+/* --- CORE SETUP --- */
+html.lenis {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+body {
+  cursor: none; /* Hide default cursor */
+}
+
+/* --- ANIMATIONS --- */
+
+/* Preloader Text Rise */
+@keyframes text-rise {
+  0% {
+    transform: translateY(100%);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+.animate-text-rise {
+  animation: text-rise 1s cubic-bezier(0.76, 0, 0.24, 1) forwards;
+}
+
+/* Preloader Line */
+@keyframes load-bar {
+  0% {
+    width: 0;
+  }
+  100% {
+    width: 100px;
+  }
+}
+.animate-load-bar {
+  animation: load-bar 1.5s ease-in-out forwards;
+}
+
+/* Marquee Scrolling */
+@keyframes marquee-left {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+.animate-marquee-left {
+  animation: marquee-left 30s linear infinite;
+}
+
+@keyframes marquee-right {
+  0% {
+    transform: translateX(-50%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+.animate-marquee-right {
+  animation: marquee-right 30s linear infinite;
+}
+
+/* Floating Animation */
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+/* Pulse Slow */
+@keyframes pulse-slow {
+  0%,
+  100% {
+    opacity: 0.05;
+  }
+  50% {
+    opacity: 0.1;
+  }
+}
+.animate-pulse-slow {
+  animation: pulse-slow 5s ease-in-out infinite;
+}
+
+/* --- UTILITIES --- */
+
+/* Reveal Text Logic (Clip Path) */
+.reveal-text {
+  transform: translateY(100%);
+  transition: transform 1s cubic-bezier(0.76, 0, 0.24, 1);
+}
+.reveal-text.active {
+  transform: translateY(0);
+}
+
+/* Reveal Fade */
+.reveal-fade {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 1s ease-out;
+}
+.reveal-fade.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* 3D Card Sheen */
+.holo-sheen {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.1) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  background-size: 200% 200%;
+  animation: sheen 3s infinite linear;
+}
+@keyframes sheen {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 100% 50%;
+  }
+}

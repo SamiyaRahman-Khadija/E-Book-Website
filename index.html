@@ -1,0 +1,1006 @@
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LuminaScript | Premium E-Book Platform</title>
+    <meta
+      name="description"
+      content="Discover your next great read with LuminaScript. A curated collection of premier e-books across all genres. Instant digital delivery."
+    />
+
+    <link rel="preconnect" href="https://cdn.tailwindcss.com" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="ebook.css" />
+
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              lumina: {
+                dark: "#0F172A", // Deep slate background
+                primary: "#0D9488", // Teal 600 - Sophisticated primary
+                accent: "#F43F5E", // Rose 500 - Vibrant pop
+                light: "#F8FAFC", // Slate 50 - Off-white background
+                muted: "#64748B", // Slate 500 - Secondary text
+              },
+            },
+            fontFamily: {
+              sans: ["Inter", "sans-serif"],
+              serif: ["Playfair Display", "serif"],
+            },
+            animation: {
+              "spin-slow": "spin 12s linear infinite",
+              float: "float 6s ease-in-out infinite",
+              "marquee-diag": "marqueeDiag 20s linear infinite",
+              "marquee-diag-rev": "marqueeDiagRev 20s linear infinite",
+            },
+            keyframes: {
+              float: {
+                "0%, 100%": { transform: "translateY(0)" },
+                "50%": { transform: "translateY(-20px)" },
+              },
+              marqueeDiag: {
+                "0%": { transform: "translateX(0) translateY(0)" },
+                "100%": { transform: "translateX(-50%) translateY(50%)" },
+              },
+              marqueeDiagRev: {
+                "0%": { transform: "translateX(-50%) translateY(50%)" },
+                "100%": { transform: "translateX(0) translateY(0)" },
+              },
+            },
+          },
+        },
+      };
+    </script>
+  </head>
+  <body
+    class="bg-lumina-light text-lumina-dark font-sans antialiased overflow-x-hidden"
+  >
+    <!--    Navbar -->
+    <header
+      id="main-header"
+      class="fixed w-full top-0 z-50 transition-all duration-500 ease-in-out bg-transparent py-4"
+    >
+      <div
+        class="container mx-auto px-4 py-6 md:px-8 flex justify-between items-center rounded-2xl transition-all duration-500"
+        id="header-container"
+      >
+        <a href="#" class="flex items-center gap-2 group">
+          <div
+            class="w-10 h-10 bg-gradient-to-br from-[#3D9D97] to-[#1E1B4B] rounded-lg flex items-center justify-center text-white text-xl font-serif font-bold shadow-lg group-hover:rotate-12 transition-transform"
+          >
+            LS
+          </div>
+          <span
+            class="text-2xl font-serif font-bold bg-clip-text text-transparent bg-gradient-to-r from-lumina-dark to-lumina-primary"
+            >LuminaScript</span
+          >
+        </a>
+
+        <nav
+          class="hidden md:flex items-center gap-8 font-medium text-sm uppercase tracking-wider text-lumina-muted"
+        >
+          <a
+            href="#library"
+            class="nav-link hover:text-lumina-primary transition-colors"
+            >Library</a
+          >
+          <a
+            href="#publishers"
+            class="nav-link hover:text-lumina-primary transition-colors"
+            >Publishers</a
+          >
+          <a
+            href="#gifts"
+            class="nav-link hover:text-lumina-primary transition-colors"
+            >Gifts & Deals</a
+          >
+          <a
+            href="#contact"
+            class="nav-link hover:text-lumina-primary transition-colors"
+            >Contact</a
+          >
+        </nav>
+
+        <div class="flex items-center gap-4">
+          <div
+            class="search-bar-container flex items-center justify-end relative overflow-hidden"
+          >
+            <input
+              type="text"
+              placeholder="Find your next read..."
+              class="search-input w-0 opacity-0 transition-all duration-500 ease-[cubic-bezier(0.68,-0.55,0.265,1.55)] border-b-2 border-lumina-primary outline-none bg-transparent text-sm absolute right-10"
+            />
+            <button
+              id="search-toggle"
+              class="text-2xl text-lumina-dark hover:text-lumina-primary transition z-10"
+            >
+              <i class="ph ph-magnifying-glass"></i>
+            </button>
+          </div>
+
+          <button
+            class="relative text-2xl text-lumina-dark hover:text-lumina-primary transition"
+          >
+            <i class="ph ph-shopping-cart-simple"></i>
+            <span
+              class="absolute -top-2 -right-2 w-5 h-5 bg-lumina-accent text-white text-xs flex items-center justify-center rounded-full font-bold animate-pulse"
+              >3</span
+            >
+          </button>
+
+          <button
+            id="mobile-menu-toggle"
+            class="md:hidden text-2xl text-lumina-dark"
+          >
+            <i class="ph ph-list"></i>
+          </button>
+        </div>
+      </div>
+      <div
+        id="mobile-menu"
+        class="md:hidden absolute top-full left-0 w-full bg-white/95 backdrop-blur-md shadow-xl p-4 hidden flex-col gap-4 text-center transform origin-top transition-all"
+      >
+        <a href="#library" class="block py-2 text-lumina-dark font-medium"
+          >Library</a
+        >
+        <a href="#publishers" class="block py-2 text-lumina-dark font-medium"
+          >Publishers</a
+        >
+        <a href="#gift" class="block py-2 text-lumina-dark font-medium"
+          >Gifts & Deals</a
+        >
+        <a href="#contact" class="block py-2 text-lumina-dark font-medium"
+          >Contact</a
+        >
+      </div>
+    </header>
+
+    <!-- Hero Section -->
+
+    <main>
+      <section
+        class="relative min-h-screen flex items-center pt-20 overflow-hidden bg-[#F0F4F8]"
+      >
+        <div
+          class="absolute top-20 left-[10%] w-64 h-64 bg-lumina-primary/10 rounded-full blur-3xl animate-float"
+        ></div>
+        <div
+          class="absolute bottom-20 right-[10%] w-80 h-80 bg-lumina-accent/10 rounded-full blur-3xl animate-float"
+          style="animation-delay: -2s"
+        ></div>
+
+        <div
+          class="container mx-auto px-4 md:px-8 grid md:grid-cols-2 gap-12 items-center z-10"
+        >
+          <div class="reveal-up">
+            <span
+              class="inline-block py-1 px-3 rounded-full bg-lumina-primary/10 text-lumina-primary text-sm font-semibold mb-4"
+              >The Future of Reading is Here</span
+            >
+            <h1
+              class="text-5xl md:text-7xl font-serif font-bold leading-tight mb-6 text-lumina-dark"
+            >
+              Illuminate Your Mind With
+              <span
+                class="text-transparent bg-clip-text bg-gradient-to-br from-[#3D9D97] via-[#3D9D97] to-[#4F46E5]]"
+                >Digital Stories.</span
+              >
+            </h1>
+            <p class="text-xl text-lumina-muted mb-8 leading-relaxed max-w-lg">
+              Discover a curated universe of knowledge and entertainment.
+              Instant access to thousands of premium e-books on any device.
+            </p>
+            <div class="flex gap-4">
+              <button
+                class="group relative px-8 py-4 bg-lumina-dark text-white rounded-full overflow-hidden shadow-xl hover:shadow-2xl transition-all"
+              >
+                <div
+                  class="absolute inset-0 w-0 bg-gradient-to-br from-[#3D9D97] via-[#3D9D97] to-[#4F46E5]] transition-all duration-[400ms] ease-out group-hover:w-full"
+                ></div>
+                <span class="relative flex items-center gap-2 font-semibold"
+                  >Start Reading Now
+                  <i
+                    class="ph-bold ph-arrow-right group-hover:translate-x-1 transition-transform"
+                  ></i
+                ></span>
+              </button>
+            </div>
+          </div>
+
+          <div
+            class="relative reveal-up h-[500px] flex justify-center items-center"
+            style="transition-delay: 0.2s"
+          >
+            <div class="relative w-3/4 h-full">
+              <div
+                class="absolute inset-0 bg-gradient-to-tr from-lumina-primary/30 to-lumina-accent/30 rounded-[3rem] rotate-6 blur-xl animate-pulse"
+              ></div>
+              <img
+                src="https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?q=80&w=1974&auto=format&fit=crop"
+                alt="E-book reader"
+                class="relative z-10 rounded-[2.5rem] shadow-[0_35px_60px_-15px_rgba(0,0,0,0.3)] object-cover h-full w-full border-4 border-white/50 animate-float"
+              />
+              <div
+                class="absolute -top-10 -left-10 bg-white p-4 rounded-2xl shadow-lg animate-bounce z-20"
+              >
+                <i class="ph-fill ph-book-open text-3xl text-lumina-accent"></i>
+              </div>
+              <div
+                class="absolute bottom-10 -right-5 bg-white py-2 px-4 rounded-full shadow-lg z-20 flex items-center gap-2"
+              >
+                <i class="ph-fill ph-star text-yellow-400"></i>
+                <span class="font-bold text-sm">4.9/5 Rating</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- library section -->
+
+      <section id="library" class="py-24 bg-white">
+        <div class="container mx-auto px-4 md:px-8">
+          <div class="text-center mb-16 reveal-up">
+            <h2 class="text-4xl font-serif font-bold mb-4">
+              Bestselling Masterpieces
+            </h2>
+            <div class="w-20 h-1 bg-lumina-accent mx-auto rounded-full"></div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-12 gap-6 auto-rows-[300px]">
+            <div
+              class="md:col-span-7 grid-item-hover reveal-up relative rounded-3xl overflow-hidden group shadow-lg cursor-pointer"
+            >
+              <img
+                src="photos/book2.avif"
+                class="w-full h-full object-cover transition-transform duration-700"
+                alt="Bestseller Book Cover"
+              />
+              <div
+                class="absolute inset-0 bg-gradient-to-t from-lumina-dark/80 to-transparent p-8 flex flex-col justify-end transform translate-y-4 group-hover:translate-y-0 transition-transform"
+              >
+                <span class="text-lumina-accent font-semibold"
+                  >#1 Bestseller</span
+                >
+                <h3 class="text-white text-2xl font-bold">The Silent Echo</h3>
+                <p
+                  class="text-white/80 opacity-0 group-hover:opacity-100 transition-opacity delay-100"
+                >
+                  Sarah J. Maas
+                </p>
+              </div>
+            </div>
+
+            <div
+              class="md:col-span-5 md:row-span-2 grid-item-hover reveal-up relative rounded-3xl overflow-hidden group shadow-lg cursor-pointer"
+              style="transition-delay: 0.1s"
+            >
+              <img
+                src="https://images.unsplash.com/photo-1543002588-bfa74002ed7e?q=80&w=1974&auto=format&fit=crop"
+                class="w-full h-full object-cover transition-transform duration-700"
+                alt="Book Cover"
+              />
+              <div
+                class="absolute inset-0 bg-gradient-to-t from-lumina-primary/80 to-transparent p-8 flex flex-col justify-end"
+              >
+                <h3 class="text-white text-2xl font-bold">Atomic Habits</h3>
+                <p class="text-white/80">James Clear</p>
+              </div>
+            </div>
+
+            <div
+              class="md:col-span-4 grid-item-hover reveal-up relative rounded-3xl overflow-hidden group shadow-lg cursor-pointer"
+              style="transition-delay: 0.2s"
+            >
+              <img
+                src="https://images.unsplash.com/photo-1541963463532-d68292c34b19?q=80&w=1976&auto=format&fit=crop"
+                class="w-full h-full object-cover transition-transform duration-700"
+                alt="Book Cover"
+              />
+              <div
+                class="absolute inset-0 bg-black/40 hover:bg-black/20 transition-colors p-6 flex items-end"
+              >
+                <h3 class="text-white text-lg font-bold">Project Hail Mary</h3>
+              </div>
+            </div>
+
+            <div
+              class="md:col-span-3 grid-item-hover reveal-up relative rounded-3xl overflow-hidden group shadow-lg cursor-pointer"
+              style="transition-delay: 0.3s"
+            >
+              <img
+                src="https://images.unsplash.com/photo-1589829085413-56de8ae18c73?q=80&w=2112&auto=format&fit=crop"
+                class="w-full h-full object-cover transition-transform duration-700"
+                alt="Book Cover"
+              />
+              <div
+                class="absolute inset-0 bg-black/40 hover:bg-black/20 transition-colors p-6 flex items-end"
+              >
+                <h3 class="text-white text-lg font-bold">Dune</h3>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!--       Gifts section      -->
+      <section
+        id="immersive-gift"
+        class="offer-container relative w-full min-h-screen flex items-center justify-center bg-lumina-dark overflow-hidden py-20 px-6"
+      >
+        <div
+          id="gift"
+          class="absolute inset-0 pointer-events-none opacity-5 flex items-center justify-center select-none"
+        >
+          <h2
+            class="text-[30vw] font-black text-white leading-none whitespace-nowrap tracking-tighter offer-bg-text"
+          >
+            PRIVILEGE • PRIVILEGE • PRIVILEGE
+          </h2>
+        </div>
+
+        <div
+          class="container mx-auto grid lg:grid-cols-2 gap-16 items-center relative z-10"
+        >
+          <div class="offer-info space-y-8">
+            <div class="overflow-hidden">
+              <span
+                class="inline-block text-lux-lime font-mono tracking-[0.3em] uppercase text-sm offer-reveal"
+              >
+                Exclusive Invitation
+              </span>
+            </div>
+
+            <h2
+              class="text-6xl md:text-8xl font-bold text-white leading-[0.9] tracking-tighter"
+            >
+              Access the <br />
+              <span class="italic font-light text-gray-500"
+                >Unseen Archive.</span
+              >
+            </h2>
+
+            <p class="text-xl text-gray-400 max-w-md leading-relaxed">
+              Gift a lifetime of intellectual supremacy. Our 'Black Tier'
+              membership is a digital relic, granted to only 500 patrons
+              annually.
+            </p>
+
+            <div class="flex items-center gap-8 pt-6">
+              <button
+                class="offer-btn group relative px-12 py-5 bg-white text-black font-bold uppercase tracking-widest overflow-hidden transition-all"
+              >
+                <span class="relative z-10">Purchase Access</span>
+                <div
+                  class="absolute inset-0 bg-gradient-to-br from-[#3D9D97] via-[#3D9D97] to-[#4F46E5]] translate-y-full group-hover:translate-y-0 transition-transform duration-500"
+                ></div>
+              </button>
+              <div
+                class="text-white font-mono text-sm underline underline-offset-8 cursor-pointer hover:text-[#CCFF00] transition-colors"
+              >
+                View T&Cs
+              </div>
+            </div>
+          </div>
+
+          <div class="card-scene flex items-center justify-center">
+            <div class="card-wrap cursor-pointer">
+              <div
+                class="lux-card relative w-[320px] h-[480px] md:w-[400px] md:h-[580px] rounded-3xl overflow-hidden shadow-[0_50px_100px_rgba(0,0,0,0.5)]"
+              >
+                <div
+                  class="absolute inset-0 bg-gradient-to-br from-lumina-dark to-[#000] p-10 flex flex-col justify-between border border-white/10"
+                >
+                  <div class="flex justify-between items-start">
+                    <div
+                      class="w-12 h-12 border-2 border-white/20 rounded-full flex items-center justify-center"
+                    >
+                      <div
+                        class="w-2 h-2 bg-[#CCFF00] rounded-full animate-pulse"
+                      ></div>
+                    </div>
+                    <span class="font-bold tracking-widest text-white/40"
+                      >2026</span
+                    >
+                  </div>
+
+                  <div class="space-y-2">
+                    <h3 class="text-4xl font-bold text-white tracking-tighter">
+                      LUMINASCRIPT
+                    </h3>
+                    <p
+                      class="text-transparent bg-clip-text bg-gradient-to-br from-[#3D9D97] via-[#3D9D97] to-[#4F46E5]] font-mono text-xs tracking-widest uppercase"
+                    >
+                      Infinite Access Key
+                    </p>
+                  </div>
+
+                  <div
+                    class="pt-10 border-t border-white/5 flex justify-between items-end"
+                  >
+                    <div class="font-mono text-[10px] text-white/30 space-y-1">
+                      <p>ENCRYPTED: 8842-LS-001</p>
+                      <p>HOLDER: ANONYMOUS</p>
+                    </div>
+                    <div class="text-3xl text-white/20">
+                      <i class="ph ph-fingerprint"></i>
+                    </div>
+                  </div>
+                </div>
+
+                <div
+                  class="card-glare absolute inset-0 pointer-events-none"
+                ></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="absolute top-1/4 right-10 w-64 h-64 bg-[#CCFF00]/5 blur-[120px] rounded-full"
+        ></div>
+      </section>
+
+      <!-- genre -->
+
+      <section class="py-24 bg-lumina-light">
+        <div class="container mx-auto px-4 md:px-8">
+          <div class="text-center mb-16 reveal-up">
+            <h2 class="text-4xl font-serif font-bold mb-4">Explore Genres</h2>
+            <p class="text-lumina-muted">
+              Dive into curated collections meant for every mood.
+            </p>
+          </div>
+
+          <div class="flex flex-wrap justify-center gap-6">
+            <a
+              href="#"
+              class="reveal-up group relative bg-white p-8 rounded-3xl shadow-md hover:shadow-xl transition-all duration-300 w-40 h-40 flex flex-col items-center justify-center text-center hover:-translate-y-2 overflow-hidden"
+            >
+              <div
+                class="absolute inset-0 bg-gradient-to-br from-lumina-primary/0 to-lumina-primary/0 group-hover:from-lumina-primary/10 group-hover:to-lumina-accent/10 transition-all duration-500"
+              ></div>
+              <i
+                class="ph-thin ph-rocket-launch text-4xl text-lumina-primary mb-3 group-hover:scale-110 transition-transform"
+              ></i>
+              <h3 class="font-semibold text-lumina-dark relative z-10">
+                Sci-Fi
+              </h3>
+              <span
+                class="text-xs text-lumina-muted opacity-0 group-hover:opacity-100 transition-opacity relative z-10"
+                >1.2k Books</span
+              >
+            </a>
+
+            <a
+              href="#"
+              class="reveal-up group relative bg-white p-8 rounded-3xl shadow-md hover:shadow-xl transition-all duration-300 w-40 h-40 flex flex-col items-center justify-center text-center hover:-translate-y-2 overflow-hidden"
+              style="transition-delay: 0.1s"
+            >
+              <div
+                class="absolute inset-0 bg-gradient-to-br from-lumina-primary/0 to-lumina-primary/0 group-hover:from-lumina-primary/10 group-hover:to-lumina-accent/10 transition-all duration-500"
+              ></div>
+              <i
+                class="ph-thin ph-heart text-4xl text-lumina-accent mb-3 group-hover:scale-110 transition-transform"
+              ></i>
+              <h3 class="font-semibold text-lumina-dark relative z-10">
+                Romance
+              </h3>
+              <span
+                class="text-xs text-lumina-muted opacity-0 group-hover:opacity-100 transition-opacity relative z-10"
+                >3.5k Books</span
+              >
+            </a>
+
+            <a
+              href="#"
+              class="reveal-up group relative bg-white p-8 rounded-3xl shadow-md hover:shadow-xl transition-all duration-300 w-40 h-40 flex flex-col items-center justify-center text-center hover:-translate-y-2 overflow-hidden"
+              style="transition-delay: 0.2s"
+            >
+              <div
+                class="absolute inset-0 bg-gradient-to-br from-lumina-primary/0 to-lumina-primary/0 group-hover:from-lumina-primary/10 group-hover:to-lumina-accent/10 transition-all duration-500"
+              ></div>
+              <i
+                class="ph-thin ph-brain text-4xl text-lumina-primary mb-3 group-hover:scale-110 transition-transform"
+              ></i>
+              <h3 class="font-semibold text-lumina-dark relative z-10">
+                Non-Fiction
+              </h3>
+              <span
+                class="text-xs text-lumina-muted opacity-0 group-hover:opacity-100 transition-opacity relative z-10"
+                >5k+ Books</span
+              >
+            </a>
+
+            <a
+              href="#"
+              class="reveal-up group relative bg-white p-8 rounded-3xl shadow-md hover:shadow-xl transition-all duration-300 w-40 h-40 flex flex-col items-center justify-center text-center hover:-translate-y-2 overflow-hidden"
+              style="transition-delay: 0.3s"
+            >
+              <div
+                class="absolute inset-0 bg-gradient-to-br from-lumina-primary/0 to-lumina-primary/0 group-hover:from-lumina-primary/10 group-hover:to-lumina-accent/10 transition-all duration-500"
+              ></div>
+              <i
+                class="ph-thin ph-sword text-4xl text-lumina-accent mb-3 group-hover:scale-110 transition-transform"
+              ></i>
+              <h3 class="font-semibold text-lumina-dark relative z-10">
+                Fantasy
+              </h3>
+              <span
+                class="text-xs text-lumina-muted opacity-0 group-hover:opacity-100 transition-opacity relative z-10"
+                >2.8k Books</span
+              >
+            </a>
+            <a
+              href="#"
+              class="reveal-up group relative bg-white p-8 rounded-3xl shadow-md hover:shadow-xl transition-all duration-300 w-40 h-40 flex flex-col items-center justify-center text-center hover:-translate-y-2 overflow-hidden"
+              style="transition-delay: 0.4s"
+            >
+              <div
+                class="absolute inset-0 bg-gradient-to-br from-lumina-primary/0 to-lumina-primary/0 group-hover:from-lumina-primary/10 group-hover:to-lumina-accent/10 transition-all duration-500"
+              ></div>
+              <i
+                class="ph-thin ph-detective text-4xl text-lumina-primary mb-3 group-hover:scale-110 transition-transform"
+              ></i>
+              <h3 class="font-semibold text-lumina-dark relative z-10">
+                Mystery
+              </h3>
+              <span
+                class="text-xs text-lumina-muted opacity-0 group-hover:opacity-100 transition-opacity relative z-10"
+                >1.9k Books</span
+              >
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- publishers -->
+
+      <section
+        id="publishers"
+        class="py-24 bg-lumina-dark overflow-hidden relative"
+      >
+        <div
+          class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20 text-center pointer-events-none mix-blend-difference text-white px-4"
+        >
+          <h2 class="text-5xl md:text-7xl font-serif font-bold leading-tight">
+            World Class <br />
+            Storytellers.
+          </h2>
+          <p class="text-xl mt-4 uppercase tracking-[0.2em]">
+            Discover the minds behind the magic.
+          </p>
+        </div>
+
+        <div
+          class="kinetic-wrapper opacity-40 grayscale hover:grayscale-0 transition-all duration-1000"
+        >
+          <div class="kinetic-track animate-marquee-diag mb-8">
+            <img
+              src="https://randomuser.me/api/portraits/men/32.jpg"
+              class="w-32 h-32 rounded-full object-cover border-2 border-white/50"
+            />
+            <img
+              src="https://randomuser.me/api/portraits/women/44.jpg"
+              class="w-32 h-32 rounded-full object-cover border-2 border-white/50"
+            />
+            <img
+              src="https://randomuser.me/api/portraits/men/85.jpg"
+              class="w-32 h-32 rounded-full object-cover border-2 border-white/50"
+            />
+            <img
+              src="https://randomuser.me/api/portraits/women/65.jpg"
+              class="w-32 h-32 rounded-full object-cover border-2 border-white/50"
+            />
+            <img
+              src="https://randomuser.me/api/portraits/men/12.jpg"
+              class="w-32 h-32 rounded-full object-cover border-2 border-white/50"
+            />
+            <img
+              src="https://randomuser.me/api/portraits/women/33.jpg"
+              class="w-32 h-32 rounded-full object-cover border-2 border-white/50"
+            />
+            <img
+              src="https://randomuser.me/api/portraits/men/32.jpg"
+              class="w-32 h-32 rounded-full object-cover border-2 border-white/50"
+            />
+            <img
+              src="https://randomuser.me/api/portraits/women/44.jpg"
+              class="w-32 h-32 rounded-full object-cover border-2 border-white/50"
+            />
+            <img
+              src="https://randomuser.me/api/portraits/men/85.jpg"
+              class="w-32 h-32 rounded-full object-cover border-2 border-white/50"
+            />
+          </div>
+
+          <div class="kinetic-track animate-marquee-diag-rev mt-32">
+            <img
+              src="https://images.unsplash.com/photo-1544947950-fa07a98d237f?q=80&w=1974&auto=format&fit=crop"
+              class="w-48 h-72 object-cover rounded-lg shadow-xl"
+            />
+            <img
+              src="https://images.unsplash.com/photo-1512820790803-83ca734da794?q=80&w=1998&auto=format&fit=crop"
+              class="w-48 h-72 object-cover rounded-lg shadow-xl"
+            />
+            <img
+              src="https://images.unsplash.com/photo-1532012197267-da84d127e765?q=80&w=1974&auto=format&fit=crop"
+              class="w-48 h-72 object-cover rounded-lg shadow-xl"
+            />
+            <img
+              src="https://images.unsplash.com/photo-1605736072668-304f2d6870c2?q=80&w=2052&auto=format&fit=crop"
+              class="w-48 h-72 object-cover rounded-lg shadow-xl"
+            />
+            <img
+              src="https://images.unsplash.com/photo-1544947950-fa07a98d237f?q=80&w=1974&auto=format&fit=crop"
+              class="w-48 h-72 object-cover rounded-lg shadow-xl"
+            />
+            <img
+              src="https://images.unsplash.com/photo-1512820790803-83ca734da794?q=80&w=1998&auto=format&fit=crop"
+              class="w-48 h-72 object-cover rounded-lg shadow-xl"
+            />
+          </div>
+        </div>
+      </section>
+
+      <section class="py-24 bg-white">
+        <div class="container mx-auto px-4 md:px-8">
+          <div class="text-center mb-16 reveal-up">
+            <h2 class="text-4xl font-serif font-bold mb-4">
+              Easiest Way to Read
+            </h2>
+            <p class="text-lumina-muted">
+              Three simple steps to your next adventure.
+            </p>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div
+              class="reveal-up text-center p-8 rounded-3xl bg-lumina-light group hover:bg-white hover:shadow-xl transition-all"
+            >
+              <div
+                class="w-20 h-20 mx-auto bg-lumina-primary/10 text-lumina-primary rounded-2xl flex items-center justify-center text-4xl mb-6 group-hover:rotate-12 transition-transform"
+              >
+                <i class="ph-duotone ph-browsers"></i>
+              </div>
+              <h3 class="text-xl font-bold mb-4">1. Browse & Select</h3>
+              <p class="text-lumina-muted">
+                Explore our vast library and find the perfect book for you.
+              </p>
+            </div>
+            <div
+              class="reveal-up text-center p-8 rounded-3xl bg-lumina-light group hover:bg-white hover:shadow-xl transition-all"
+              style="transition-delay: 0.2s"
+            >
+              <div
+                class="w-20 h-20 mx-auto bg-lumina-accent/10 text-lumina-accent rounded-2xl flex items-center justify-center text-4xl mb-6 group-hover:rotate-12 transition-transform"
+              >
+                <i class="ph-duotone ph-download-simple"></i>
+              </div>
+              <h3 class="text-xl font-bold mb-4">2. Instant Checkout</h3>
+              <p class="text-lumina-muted">
+                Secure payment and immediate digital delivery to your account.
+              </p>
+            </div>
+            <div
+              class="reveal-up text-center p-8 rounded-3xl bg-lumina-light group hover:bg-white hover:shadow-xl transition-all"
+              style="transition-delay: 0.4s"
+            >
+              <div
+                class="w-20 h-20 mx-auto bg-lumina-primary/10 text-lumina-primary rounded-2xl flex items-center justify-center text-4xl mb-6 group-hover:rotate-12 transition-transform"
+              >
+                <i class="ph-duotone ph-device-tablet-camera"></i>
+              </div>
+              <h3 class="text-xl font-bold mb-4">3. Read Anywhere</h3>
+              <p class="text-lumina-muted">
+                Access your books on any device, anytime, online or offline.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="contact" class="py-24 bg-[#F0F4F8] relative overflow-hidden">
+        <div class="container mx-auto px-4 md:px-8 relative z-10">
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-16">
+            <div class="reveal-up pr-8">
+              <h2 class="text-4xl font-serif font-bold mb-6">
+                About LuminaScript
+              </h2>
+              <div class="w-20 h-1 bg-lumina-primary mb-8 rounded-full"></div>
+              <p class="text-lg text-lumina-muted leading-relaxed mb-6">
+                We believe knowledge should be accessible, instant, and
+                beautiful. LuminaScript was born from a passion to bridge the
+                gap between traditional storytelling and modern digital
+                convenience.
+              </p>
+              <p class="text-lg text-lumina-muted leading-relaxed mb-8">
+                Our mission is to curate the world's best digital reading
+                experience, connecting passionate readers with visionary authors
+                through a platform dedicated to quality and ease of use.
+              </p>
+              <div class="flex gap-4 items-center">
+                <div class="flex -space-x-4">
+                  <img
+                    class="w-12 h-12 rounded-full border-2 border-white"
+                    src="https://randomuser.me/api/portraits/men/1.jpg"
+                    alt=""
+                  />
+                  <img
+                    class="w-12 h-12 rounded-full border-2 border-white"
+                    src="https://randomuser.me/api/portraits/women/2.jpg"
+                    alt=""
+                  />
+                  <img
+                    class="w-12 h-12 rounded-full border-2 border-white"
+                    src="https://randomuser.me/api/portraits/men/3.jpg"
+                    alt=""
+                  />
+                </div>
+                <span class="text-sm font-semibold"
+                  >Trusted by 50k+ Readers</span
+                >
+              </div>
+            </div>
+
+            <div
+              class="reveal-up bg-white p-8 md:p-12 rounded-[3rem] shadow-2xl"
+              style="transition-delay: 0.2s"
+            >
+              <h3 class="text-2xl font-bold mb-8">Get in Touch</h3>
+              <form class="space-y-6">
+                <div class="relative">
+                  <input
+                    type="text"
+                    id="name"
+                    class="peer w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:border-lumina-primary placeholder-transparent pt-4 pb-1.5"
+                    placeholder="Name"
+                    autocomplete="off"
+                  />
+                  <label
+                    for="name"
+                    class="absolute left-0 -top-3.5 text-gray-600 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-4 peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm"
+                    >Your Name</label
+                  >
+                </div>
+                <div class="relative">
+                  <input
+                    type="email"
+                    id="email"
+                    class="peer w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:border-lumina-primary placeholder-transparent pt-4 pb-1.5"
+                    placeholder="Email"
+                    autocomplete="off"
+                  />
+                  <label
+                    for="email"
+                    class="absolute left-0 -top-3.5 text-gray-600 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-4 peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm"
+                    >Email Address</label
+                  >
+                </div>
+                <div class="relative">
+                  <textarea
+                    id="message"
+                    rows="4"
+                    class="peer w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:border-lumina-primary placeholder-transparent pt-8 pb-1.5 resize-none"
+                    placeholder="Message"
+                  ></textarea>
+                  <label
+                    for="message"
+                    class="absolute left-0 top-0 text-gray-600 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-8 peer-focus:top-0 peer-focus:text-gray-600 peer-focus:text-sm"
+                    >Your Message</label
+                  >
+                </div>
+                <button
+                  type="button"
+                  class="w-full py-4 bg-lumina-primary text-white rounded-xl font-bold text-lg hover:bg-lumina-dark transition-colors shadow-lg"
+                >
+                  Send Message
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="py-24 bg-white overflow-hidden font-serif">
+        <div class="container mx-auto px-4 md:px-8 mb-16 text-center reveal-up">
+          <h2 class="text-4xl font-bold">Reader Testimonials</h2>
+        </div>
+        <div
+          class="flex overflow-x-scroll pb-10 hide-scroll-bar gap-8 px-8 no-scrollbar snap-x snap-mandatory"
+        >
+          <div
+            class="flex-none w-[350px] md:w-[450px] bg-lumina-light p-8 rounded-3xl shadow-sm border border-gray-100 snap-center reveal-up hover:-translate-y-2 transition-all duration-300 relative"
+          >
+            <i
+              class="ph-fill ph-quotes text-6xl text-lumina-primary/20 absolute top-4 left-4"
+            ></i>
+            <p class="text-lg text-lumina-dark italic mb-6 relative z-10">
+              "LuminaScript has completely transformed how I read. The selection
+              is impeccable, and the instant delivery is flawless. The interface
+              is pure joy to use."
+            </p>
+            <div class="flex items-center gap-4">
+              <img
+                src="https://randomuser.me/api/portraits/women/68.jpg"
+                class="w-14 h-14 rounded-full object-cover shadow-md"
+              />
+              <div>
+                <h4 class="font-bold">Elena Rodriguez</h4>
+                <span class="text-lumina-muted text-sm"
+                  >Literature Enthusiast</span
+                >
+              </div>
+            </div>
+          </div>
+          <div
+            class="flex-none w-[350px] md:w-[450px] bg-lumina-light p-8 rounded-3xl shadow-sm border border-gray-100 snap-center reveal-up hover:-translate-y-2 transition-all duration-300 relative"
+            style="transition-delay: 0.1s"
+          >
+            <i
+              class="ph-fill ph-quotes text-6xl text-lumina-primary/20 absolute top-4 left-4"
+            ></i>
+            <p class="text-lg text-lumina-dark italic mb-6 relative z-10">
+              "As a busy professional, I love the convenience. Finding my next
+              business book and reading it on my tablet within minutes is a
+              game-changer."
+            </p>
+            <div class="flex items-center gap-4">
+              <img
+                src="https://randomuser.me/api/portraits/men/54.jpg"
+                class="w-14 h-14 rounded-full object-cover shadow-md"
+              />
+              <div>
+                <h4 class="font-bold">Marcus Chen</h4>
+                <span class="text-lumina-muted text-sm">Entrepreneur</span>
+              </div>
+            </div>
+          </div>
+          <div
+            class="flex-none w-[350px] md:w-[450px] bg-lumina-light p-8 rounded-3xl shadow-sm border border-gray-100 snap-center reveal-up hover:-translate-y-2 transition-all duration-300 relative"
+            style="transition-delay: 0.2s"
+          >
+            <i
+              class="ph-fill ph-quotes text-6xl text-lumina-primary/20 absolute top-4 left-4"
+            ></i>
+            <p class="text-lg text-lumina-dark italic mb-6 relative z-10">
+              "The curated lists are fantastic. I've discovered so many amazing
+              authors I wouldn't have found otherwise. Highly recommend!"
+            </p>
+            <div class="flex items-center gap-4">
+              <img
+                src="https://randomuser.me/api/portraits/women/22.jpg"
+                class="w-14 h-14 rounded-full object-cover shadow-md"
+              />
+              <div>
+                <h4 class="font-bold">Sarah Jenkins</h4>
+                <span class="text-lumina-muted text-sm">Avid Reader</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer
+      class="bg-lumina-dark text-white pt-24 pb-12 rounded-t-[3rem] relative overflow-hidden max-md:center text-sm max-sm:text-lg"
+    >
+      <div
+        class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-5"
+      ></div>
+      <div class="container mx-auto px-4 md:px-8 relative z-10">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+          <div class="md:col-span-2">
+            <a href="#" class="flex items-center gap-2 mb-6">
+              <div
+                class="w-10 h-10 bg-gradient-to-br from-[#3D9D97] to-[#1E1B4B] rounded-lg flex items-center justify-center text-white text-xl font-serif font-bold shadow-lg"
+              >
+                LS
+              </div>
+              <span class="text-2xl font-serif font-bold">LuminaScript</span>
+            </a>
+            <p class="text-white/70 mb-8 max-w-md">
+              Subscribe to our newsletter for exclusive deals, new releases, and
+              literary inspiration delivered straight to your inbox.
+            </p>
+            <div class="flex gap-2 max-w-md">
+              <input
+                type="email"
+                placeholder="Your email address"
+                class="flex-1 bg-white/10 border border-white/20 rounded-xl px-4 py-3 focus:outline-none focus:border-lumina-primary transition-colors text-white"
+              />
+              <button
+                class="bg-lumina-primary hover:bg-lumina-accent transition-colors px-6 py-3 rounded-xl font-bold"
+              >
+                Subscribe
+              </button>
+            </div>
+          </div>
+          <!-- quick links -->
+          <div class="max-sm:text-center max-md:text-center">
+            <h4 class="text-lg font-bold mb-6">Quick Links</h4>
+            <ul class="space-y-4 text-white/70">
+              <li>
+                <a href="#" class="hover:text-lumina-primary transition-colors"
+                  >Library Collection</a
+                >
+              </li>
+              <li>
+                <a href="#" class="hover:text-lumina-primary transition-colors"
+                  >Publishers</a
+                >
+              </li>
+              <li>
+                <a href="#" class="hover:text-lumina-primary transition-colors"
+                  >Gift Cards</a
+                >
+              </li>
+              <li>
+                <a href="#" class="hover:text-lumina-primary transition-colors"
+                  >FAQs</a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <div class="max-sm:text-center max-md:text-center">
+            <h4 class="text-lg font-bold mb-6">Connect</h4>
+            <ul class="space-y-4 text-white/70 mb-8">
+              <li
+                class="flex items-center gap-2 max-sm:text-center center max-md:text-center"
+              >
+                <i
+                  class="ph-fill ph-envelope max-sm:text-center center max-md:text-cente"
+                ></i>
+                support@luminascript.com
+              </li>
+              <li class="flex items-center gap-2">
+                <i class="ph-fill ph-phone"></i> +1 (555) 123-4567
+              </li>
+            </ul>
+            <div class="flex gap-4 text-2xl">
+              <a
+                href="#"
+                class="hover:text-lumina-primary hover:-translate-y-1 transition-all"
+                ><i class="ph-fill ph-facebook-logo"></i
+              ></a>
+              <a
+                href="#"
+                class="hover:text-lumina-primary hover:-translate-y-1 transition-all"
+                ><i class="ph-fill ph-twitter-logo"></i
+              ></a>
+              <a
+                href="#"
+                class="hover:text-lumina-primary hover:-translate-y-1 transition-all"
+                ><i class="ph-fill ph-instagram-logo"></i
+              ></a>
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center text-white/50 text-sm"
+        >
+          <p>© 2024 LuminaScript. All rights reserved.</p>
+          <div class="flex gap-6 mt-4 md:mt-0">
+            <a href="#" class="hover:text-white">Privacy Policy</a>
+            <a href="#" class="hover:text-white">Terms of Service</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script src="ebook.js"></script>
+  </body>
+</html>
